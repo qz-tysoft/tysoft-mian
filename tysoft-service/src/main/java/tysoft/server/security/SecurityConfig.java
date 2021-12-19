@@ -96,7 +96,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        System.out.println("---------------------------------------------------------------------");
         http.authorizeRequests()
                 // 从配置文件获取不用进行权限验证的请求或资源
                 .antMatchers(EXCLUDEPATH).permitAll()

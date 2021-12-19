@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Description: 暂无权限处理类
- * @Author: hxx
- * @Date: 2021/12/17
+ * @Author: Hxx
+ * @Date: 2021/12/19
  **/
 @Component
 public class UserNotPermissionHandler implements AccessDeniedHandler {

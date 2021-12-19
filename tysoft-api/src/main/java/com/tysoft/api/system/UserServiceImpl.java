@@ -1,8 +1,7 @@
 package com.tysoft.api.system;
 
-import com.tysoft.api.BaseServiceImpl;
 import com.tysoft.api.mapper.system.UserMapper;
-import com.tysoft.entity.system.User;
+import com.tysoft.entity.system.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,22 +18,7 @@ public class UserServiceImpl  implements  UserService{
     UserMapper userMapper;
 
     @Override
-    public User findUserById(String id) {
-        return userMapper.findUserById(id);
-    }
-
-    @Override
-    public User findUserByPassword(String account, String passWord) {
-        return null;
-    }
-
-    @Override
-    public User findUserByUserName(String userName) {
-        User user = new User();
-        user.setUserName("test");
-        user.setRealName("hxx");
-        user.setPassWord("123456");
-        user.setState(0);
-        return user;
+    public UserModel selectUserModelByUserName(String userName) {
+        return userMapper.selectUserModelByUserName(userName);
     }
 }

@@ -1,7 +1,6 @@
 package com.tysoft.api.mapper.system;
 
-import com.tysoft.entity.system.User;
-import org.apache.ibatis.annotations.Param;
+import com.tysoft.entity.system.UserModel;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,17 +10,10 @@ import org.springframework.stereotype.Repository;
 public interface  UserMapper {
 
     /**
-     * 根据id查询用户
-     * @param id
-     * @return
+     * 根据用户名查询用户
+     *
+     * @param userName 用户名称
+     * @return UserModel
      */
-    User findUserById (@Param("id") String id);
-
-    /**
-     * 根据id账号密码查询用户
-     * @param account
-     * @param passWord
-     * @return
-     */
-    User findUserByPassword (String account, String passWord);
+    UserModel selectUserModelByUserName(String userName);
 }

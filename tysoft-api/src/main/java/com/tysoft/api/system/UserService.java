@@ -1,6 +1,7 @@
 package com.tysoft.api.system;
 
-import com.tysoft.entity.system.User;
+
+import com.tysoft.entity.system.UserModel;
 
 /**
  * @author hxx
@@ -9,25 +10,10 @@ import com.tysoft.entity.system.User;
 public interface UserService {
 
     /**
-     * 根据id查询用户
-     * @param id
-     * @return
+     * 根据用户名查询用户
+     *
+     * @param userName 用户名称
+     * @return UserModel
      */
-    User findUserById (String id);
-
-    /**
-     * 根据id账号密码查询用户
-     * @param account
-     * @param passWord
-     * @return
-     */
-    User findUserByPassword (String account, String passWord);
-
-
-    /**
-     * 根据用户名查询用户是否存在
-     * @param userName
-     * @return
-     */
-    User findUserByUserName (String userName);
+    UserModel selectUserModelByUserName(String userName);
 }

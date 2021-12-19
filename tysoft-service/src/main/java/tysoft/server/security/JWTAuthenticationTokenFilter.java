@@ -1,7 +1,8 @@
 package tysoft.server.security;
 
+import com.alibaba.druid.util.StringUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.tysoft.entity.system.User;
+import com.tysoft.entity.system.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -12,22 +13,18 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Description: JWT接口请求校验拦截器请求接口时会进入这里验证Token是否合法和过期
- * @Author: hxx
- * @Date: 2021/12/17
+ * @Author: Hxx
+ * @Date: 2020/4/28
  **/
 @Slf4j
 public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
@@ -60,10 +57,8 @@ public class JWTAuthenticationTokenFilter extends BasicAuthenticationFilter {
                         );
                     }
                     //组装参数
-                    User userModel = new User();
-                    userModel.setUserName(claims.getSubject());
-                    userModel.setId(claims.getId() + "" );
-                    userModel.setAuthorities(authorities);
+                    UserModel userModel = new UserModel();
+                    userModel.setUserName(claims.getSubject()).setUserId(Integer.parseInt(claims.getId())).setAuthorities(authorities);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userModel, userId, authorities);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

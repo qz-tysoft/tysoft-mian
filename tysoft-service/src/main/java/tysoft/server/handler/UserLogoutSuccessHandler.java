@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Description: 用户登出类
- * @Author: hxx
- * @Date: 2021/12/17
+ * @Author: Hxx
+ * @Date: 2021/12/19
  **/
 @Component
 public class UserLogoutSuccessHandler implements LogoutSuccessHandler {

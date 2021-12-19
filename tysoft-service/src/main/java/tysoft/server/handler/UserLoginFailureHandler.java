@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Description: 登录失败处理类
- * @Author: hxx
- * @Date: 2021/12/17
+ * @Author: Hxx
+ * @Date: 2021/12/19
  **/
 @Slf4j
 @Component
@@ -25,7 +25,7 @@ public class UserLoginFailureHandler implements AuthenticationFailureHandler {
      */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
-        // 判断异常类型
+        // 这些对于操作的处理类可以根据不同异常进行不同处理
         if (exception instanceof UsernameNotFoundException) {
             log.info("【登录失败】" + exception.getMessage());
             ServerResponse.createResponseEnumJson(response, ServerResponse.userNameOrPasswordError());

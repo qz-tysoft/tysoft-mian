@@ -24,32 +24,32 @@ import java.io.Serializable;
 @Slf4j
 public class ServerResponse<T> implements Serializable {
 
-    private Double status;
+    private Integer status;
     private String msg;
     private String url;
     private T data;
 
-    private ServerResponse(Double status) {
+    private ServerResponse(Integer status) {
         this.status = status;
     }
 
-    private ServerResponse(Double status, T data) {
+    private ServerResponse(Integer status, T data) {
         this.status = status;
         this.data = data;
     }
 
-    private ServerResponse(Double status, String msg, T data) {
+    private ServerResponse(Integer status, String msg, T data) {
         this.data = data;
         this.status = status;
         this.msg = msg;
     }
 
-    private ServerResponse(Double status, String msg) {
+    private ServerResponse(Integer status, String msg) {
         this.status = status;
         this.msg = msg;
     }
 
-    private ServerResponse(Double status, String msg, String url) {
+    private ServerResponse(Integer status, String msg, String url) {
         this.status = status;
         this.msg = msg;
         this.url = url;
@@ -93,7 +93,7 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(ResponseEnum.ERROR.getCode(), errorMessage);
     }
 
-    public static <T> ServerResponse<T> createByCodeMessage(Double code, String errorMessage) {
+    public static <T> ServerResponse<T> createByCodeMessage(Integer code, String errorMessage) {
         return new ServerResponse<T>(code, errorMessage);
     }
 

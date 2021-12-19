@@ -1,7 +1,8 @@
 package tysoft.server.security;
 
-
-import com.tysoft.entity.system.User;
+import com.tysoft.api.system.UserService;
+import com.tysoft.entity.system.PermissionModel;
+import com.tysoft.entity.system.UserModel;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -9,11 +10,14 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @Description: 自定义权限注解验证
- * @Author: hxx
+ * @Author: Hxx
  * @Date: 2020/4/28
  **/
 
@@ -21,6 +25,8 @@ import java.util.List;
 public class UserPermissionEvaluator implements PermissionEvaluator {
 
 
+    @Resource
+    UserService userService;
 
     public UserPermissionEvaluator() {
     }
@@ -38,9 +44,15 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
     @Override
     public boolean hasPermission(Authentication authentication, Object targetUrl, Object permission) {
         // 获取用户信息
-        User userModel = (User) authentication.getPrincipal();
-        // 权限对比先放空
-        return userModel.getIsPermission();
+        UserModel userModel = (UserModel) authentication.getPrincipal();
+        // 获取用户对应角色的权限(因为SQL中已经GROUP BY了，所以返回的list是不重复的)
+        List<PermissionModel> permissionModels = userService.selectUserModelByUserName(userModel.getUserName()).getPermissionModels();
+        List<String> rolePermissions = new ArrayList<>();
+        for (PermissionModel permissionModel : permissionModels) {
+            rolePermissions.add(permissionModel.getPermissionValue());
+        }
+        // 权限对比
+        return rolePermissions.contains(permission.toString());
     }
 
     @Override
