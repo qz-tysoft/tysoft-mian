@@ -41,3 +41,10 @@ exclude:
     - /swagger-ui.html
     - /swagger-resources/**
     - /webjars/**
+logging:
+  config: classpath:logback-spring.xml
+
+#日志对应的目录
+logBack:
+   logDir: /Users/damon/work/tysoft/log
+   logAppName: tysoft

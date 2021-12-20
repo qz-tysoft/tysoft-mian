@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import tysoft.server.BaseControl;
 import tysoft.server.response.ServerResponse;
 import tysoft.server.security.JWTToken;
 
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  **/
 @Slf4j
 @Component
-public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
+public class UserLoginSuccessHandler extends BaseControl implements AuthenticationSuccessHandler {
     /**
      * 登录成功返回结果
      */

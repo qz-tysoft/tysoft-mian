@@ -19,7 +19,7 @@
             <result property="roleName" column="role_name"/>
         </collection>
         <collection property="permissionModels" ofType="com.tysoft.entity.system.PermissionModel"
-                    select="findPermissionByRoleId" column="user_id">
+                    select="findPermissionByRoleId" column=" ">
             <id property="permissionId" column="permission_id"/>
             <result property="permissionName" column="permission_name"/>
             <result property="permissionValue" column="permission_value"/>
