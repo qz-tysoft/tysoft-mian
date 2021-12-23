@@ -21,8 +21,8 @@ import java.io.Serializable;
 @ApiModel(description = "权限对象Bean")
 public class PermissionModel implements Serializable {
 
-    @ApiModelProperty(value = "用户主键(新增?,更新*)")
-    private Integer permissionId;
+    @ApiModelProperty(value = "用户主键")
+    private String permissionId;
 
     @ApiModelProperty(value = "权限名称")
     private String permissionName;

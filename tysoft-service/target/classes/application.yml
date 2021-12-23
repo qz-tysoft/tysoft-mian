@@ -41,3 +41,19 @@ exclude:
     - /swagger-ui.html
     - /swagger-resources/**
     - /webjars/**
+#日志对应的目录(本地写死)
+logBack:
+   logDir: C:\Users\zy\Desktop\LogTest\tsofyLog
+   logAppName: tysoft
+logging:
+  config: classpath:logback-spring.xml
+#eureka配置
+eureka:
+  instance:
+    prefer-ip-address: true #使用服务的id地址注册
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+    fetch-registry: true
+    register-with-eureka: true

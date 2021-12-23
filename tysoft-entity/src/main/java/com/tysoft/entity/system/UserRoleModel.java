@@ -22,7 +22,7 @@ import java.io.Serializable;
 public class UserRoleModel implements Serializable {
 
     @ApiModelProperty(value = "主键", hidden = true)
-    private Integer userRoleId;
+    private String userRoleId;
 
     @ApiModelProperty(value = "用户主键", hidden = true)
     private Integer userId;

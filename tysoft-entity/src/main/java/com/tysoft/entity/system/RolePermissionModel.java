@@ -23,7 +23,7 @@ public class RolePermissionModel implements Serializable {
 
 
     @ApiModelProperty(value = "主键", hidden = true)
-    private Integer rolePermissionId;
+    private String rolePermissionId;
 
     @ApiModelProperty(value = "角色主键", hidden = true)
     private Integer roleId;

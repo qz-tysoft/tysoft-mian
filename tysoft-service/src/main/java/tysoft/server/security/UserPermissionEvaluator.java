@@ -47,12 +47,16 @@ public class UserPermissionEvaluator implements PermissionEvaluator {
         UserModel userModel = (UserModel) authentication.getPrincipal();
         // 获取用户对应角色的权限(因为SQL中已经GROUP BY了，所以返回的list是不重复的)
         List<PermissionModel> permissionModels = userService.selectUserModelByUserName(userModel.getUserName()).getPermissionModels();
-        List<String> rolePermissions = new ArrayList<>();
-        for (PermissionModel permissionModel : permissionModels) {
-            rolePermissions.add(permissionModel.getPermissionValue());
+        if (permissionModels == null || permissionModels.size() == 0) {
+            return false;
+        } else {
+            List<String> rolePermissions = new ArrayList<>();
+            for (PermissionModel permissionModel : permissionModels) {
+                rolePermissions.add(permissionModel.getPermissionValue());
+            }
+            // 权限对比
+            return rolePermissions.contains(permission.toString());
         }
-        // 权限对比
-        return rolePermissions.contains(permission.toString());
     }
 
     @Override

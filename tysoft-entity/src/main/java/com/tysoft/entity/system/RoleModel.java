@@ -21,8 +21,8 @@ import java.io.Serializable;
 @ApiModel(description = "角色对象Bean")
 public class RoleModel implements Serializable {
 
-    @ApiModelProperty(value = "主键(新增?,更新*)")
-    private Integer roleId;
+    @ApiModelProperty(value = "主键")
+    private String roleId;
 
     @ApiModelProperty(value = "角色名称")
     private String roleName;

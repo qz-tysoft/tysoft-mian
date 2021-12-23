@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-
-    <springProperty scope="context" name="logback.appname" source="logback.appname"/>
-    <springProperty scope="context" name="logback.logdir" source="logback.logdir"/>
+    <!-- ch.qos.logback.classic.filter.ThresholdFilter  临界值过滤器, 过滤掉低于指定临界值的日志
+    ch.qos.logback.classic.filter.LevelFilter   将过滤器的日志级别配置为INFO，所有INFO级别的日志交给appender处理，非INFO级别的日志，被过滤掉。 -->
+    <springProperty scope="context" name="logBack.logAppName" source="logBack.logAppName"/>
+    <springProperty scope="context" name="logBack.logDir" source="logBack.logDir"/>
 
     <!--输出到控制台 ConsoleAppender-->
     <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
         <!--展示格式 layout-->
         <layout class="ch.qos.logback.classic.PatternLayout">
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
             <pattern>%black(%contextName-) %d{yyyy-MM-dd HH:mm:ss} %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) : %msg%n</pattern>
         </layout>
     </appender>
 
+    <!-- 按照每天生成日志文件。存储事件日志 -->
     <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <!--过滤 Error-->
@@ -21,11 +24,11 @@
             <!--没有匹配到就允许-->
             <onMismatch>ACCEPT</onMismatch>
         </filter>
-        <File>${logback.logdir}/info.${logback.appname}.log</File>
+        <File>${logBack.logDir}/info.${logBack.logAppName}.log</File>
         <!--滚动策略，按照时间滚动 TimeBasedRollingPolicy-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
-            <FileNamePattern>${logback.logdir}/info.${logback.appname}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <FileNamePattern>${logBack.logDir}/info.${logBack.logAppName}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
             <!--只保留最近90天的日志-->
             <maxHistory>90</maxHistory>
             <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
@@ -47,11 +50,11 @@
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>Error</level>
         </filter>
-        <File>${logback.logdir}/error.${logback.appname}.log</File>
+        <File>${logBack.logDir}/error.${logBack.logAppName}.log</File>
         <!--滚动策略，按照时间滚动 TimeBasedRollingPolicy-->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--文件路径,定义了日志的切分方式——把每一天的日志归档到一个文件中,以防止日志填满整个磁盘空间-->
-            <FileNamePattern>${logback.logdir}/error.${logback.appname}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
+            <FileNamePattern>${logBack.logDir}/error.${logBack.logAppName}.%d{yyyy-MM-dd}-%i.log</FileNamePattern>
             <!--只保留最近90天的日志-->
             <maxHistory>90</maxHistory>
             <!--用来指定日志文件的上限大小，那么到了这个值，就会删除旧的日志-->
@@ -68,15 +71,12 @@
         </encoder>
     </appender>
 
-    <!--日志websocket-->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!--encoder 默认配置为PatternLayoutEncoder-->
         <encoder>
             <pattern>%black(%contextName-) %d{yyyy-MM-dd HH:mm:ss} %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) : %msg%n</pattern>
             <charset>UTF-8</charset>
         </encoder>
-        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
-        <filter class="com.xmrbi.segs.qzjs.common.filter.log.LogFilter"></filter>
     </appender>
 
     <!--指定最基础的日志输出级别-->

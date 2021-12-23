@@ -27,8 +27,8 @@ import java.util.Set;
 @ToString(exclude = "password")
 public class UserModel implements Serializable {
 
-    @ApiModelProperty(value = "主键(新增?,更新*)")
-    private Integer userId;
+    @ApiModelProperty(value = "主键")
+    private String userId;
 
     @ApiModelProperty(value = "账号", hidden = true)
     private String account;
