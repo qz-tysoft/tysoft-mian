@@ -10,6 +10,16 @@ spring:
           uri: http://127.0.0.1:8088/web/
           predicates:
             - Path=/web/**
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 5
+      max-active: 20
+      max-wait: 30000
+      min-idle: 5
+      url: jdbc:mysql://localhost:3306/tysoft_main?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: 123456
 eureka:
   instance:
     prefer-ip-address: true #使用服务的id地址注册
