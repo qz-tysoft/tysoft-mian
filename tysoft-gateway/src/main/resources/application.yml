@@ -1,8 +1,6 @@
 server:
   port: 8082
 spring:
-  application:
-    name: tysoft-gateway-service
   cloud:
     gateway:
       routes:
@@ -29,3 +27,8 @@ eureka:
       defaultZone: http://localhost:8081/eureka/
     fetch-registry: true
     register-with-eureka: true
+# 配置Security需要忽略的路径
+exclude:
+  path:
+    - /index
+    - /login/**

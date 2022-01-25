@@ -22,7 +22,7 @@ import tysoft.gateway.handler.*;
 @EnableGlobalMethodSecurity(prePostEnabled = true) //开启权限注解,默认是关闭的
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    static String[] EXCLUDEPATH = {"/index", "/login/**", "/v2/api-docs", "/swagger-ui.html", "/swagger-resources/**", "/webjars/**"};
+    static String[] EXCLUDEPATH = {"/index", "/login/**"};
     /**
      * 自定义登录成功处理器
      */
