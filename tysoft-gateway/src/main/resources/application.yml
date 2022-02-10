@@ -5,7 +5,7 @@ spring:
     gateway:
       routes:
         - id: web
-          uri: http://127.0.0.1:8088/web/
+          uri: http://127.0.0.1:8088/
           predicates:
             - Path=/web/**
   datasource:
@@ -27,8 +27,3 @@ eureka:
       defaultZone: http://localhost:8081/eureka/
     fetch-registry: true
     register-with-eureka: true
-# 配置Security需要忽略的路径
-exclude:
-  path:
-    - /index
-    - /login/**
