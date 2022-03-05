@@ -4,10 +4,12 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: web
-          uri: http://127.0.0.1:8088/
+        - id: oath
+          uri: http://127.0.0.1:8083/auth
           predicates:
-            - Path=/web/**
+            - Path=/auth/**
+
+
   datasource:
     druid:
       driver-class-name: com.mysql.jdbc.Driver

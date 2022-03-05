@@ -1,7 +1,7 @@
 server:
   port: 8088
-  application:
-      name: web
+  servlet:
+    context-path: /web
 
 # 解密工具
 jasypt:
@@ -10,8 +10,6 @@ jasypt:
     algorithm: PBEWithMD5AndDES
 
 spring:
-  application:
-    name: 'tysoft'
   mvc:
     servlet:
       load-on-startup: 1
