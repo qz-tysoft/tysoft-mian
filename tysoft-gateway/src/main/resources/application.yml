@@ -4,10 +4,21 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: oath
+        - id: auth
           uri: http://127.0.0.1:8083/auth
           predicates:
             - Path=/auth/**
+  # 数据库默认存用户鉴权相关信息
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
+    jedis:
+      pool:
+       max-active: 600
+       max-idle: 300
+       max-wait: 15000ms
+       min-idle: 10
 
 
   datasource:

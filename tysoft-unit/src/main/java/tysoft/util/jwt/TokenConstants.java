@@ -31,6 +31,17 @@ public class TokenConstants {
      */
     public static final String AUTH_FIELD = "authorities";
 
+    /**
+     * 用户Id字段
+     */
+    public static final String USER_ID_FIELD = "userId";
+
+
+    /**
+     * token传输字段
+     */
+    public static final String TOKEN_DATA_FIELD= "tokenData";
+
 
 
 }

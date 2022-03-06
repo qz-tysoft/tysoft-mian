@@ -1,15 +1,11 @@
-package tysoft.gateway.jwt;
+package tysoft.gateway.fifter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
-/**
- * @Description:
- * @Author: hxx
- * @Date: 2021/12/17
- **/
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig{

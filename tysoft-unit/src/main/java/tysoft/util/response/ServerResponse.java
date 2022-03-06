@@ -25,6 +25,7 @@ public class ServerResponse<T> implements Serializable {
     private Integer status;
     private String msg;
     private String url;
+    private String refreshToken;
     private T data;
 
     private ServerResponse(Integer status) {
@@ -40,6 +41,13 @@ public class ServerResponse<T> implements Serializable {
         this.data = data;
         this.status = status;
         this.msg = msg;
+    }
+
+    private ServerResponse(Integer status, String msg, T data, String refreshToken) {
+        this.data = data;
+        this.status = status;
+        this.msg = msg;
+        this.refreshToken = refreshToken;
     }
 
     private ServerResponse(Integer status, String msg) {
@@ -95,6 +103,10 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse<T>(code, errorMessage);
     }
 
+    public static <T> ServerResponse<T> createSuccessAndSendRefreshToken(Integer status, String msg, T data, String refreshToken) {
+        return new ServerResponse<T>(status, ResponseEnum.SUCCESS.getDesc(), data, refreshToken);
+    }
+
     /**
      * 无对应资源的权限
      *
@@ -103,6 +115,20 @@ public class ServerResponse<T> implements Serializable {
     public static ServerResponse noAccessPermissions() {
         return new ServerResponse(ResponseEnum.NO_ACCESS_PERMISSIONS.getCode(), ResponseEnum.NO_ACCESS_PERMISSIONS.getDesc());
     }
+
+
+    public static ServerResponse noToken() {
+        return new ServerResponse(ResponseEnum.NOT_TOKEN.getCode(), ResponseEnum.NOT_TOKEN.getDesc());
+    }
+
+    public static ServerResponse tokenExpire() {
+        return new ServerResponse(ResponseEnum.TOKEN_EXPIRE.getCode(), ResponseEnum.TOKEN_EXPIRE.getDesc());
+    }
+
+    public static ServerResponse tokenNoLegal() {
+        return new ServerResponse(ResponseEnum.TOKEN_NO_LEGAL.getCode(), ResponseEnum.TOKEN_NO_LEGAL.getDesc());
+    }
+
 
     /**
      * 未登录

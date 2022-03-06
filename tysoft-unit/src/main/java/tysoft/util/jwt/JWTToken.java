@@ -42,4 +42,14 @@ public class JWTToken {
                 .compact();
         return token;
     }
+
+    /**
+     * 校验token
+     * @param token
+     * @return
+     */
+    public static String checkToken(String token){
+
+        return null;
+    }
 }

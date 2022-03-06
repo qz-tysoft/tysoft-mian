@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author hxx
  */
 @SpringBootApplication
-@ComponentScan(value = {"tysoft.gateway.jwt"})
+@ComponentScan(value = {"tysoft.gateway.*"})
 public class TysoftGateWayAppliacation {
     public static void main(String[] args) {
         SpringApplication.run(TysoftGateWayAppliacation.class, args);

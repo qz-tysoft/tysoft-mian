@@ -33,6 +33,19 @@ public enum ResponseEnum {
      * 无对应资源权限
      */
     NO_ACCESS_PERMISSIONS(403, "无对应资源权限"),
+
+    /**
+     * 无Token
+     */
+    NOT_TOKEN(405, "token不为空"),
+    /**
+     * token过期
+     */
+    TOKEN_EXPIRE(406, "token过期"),
+    /**
+     * token不合法
+     */
+    TOKEN_NO_LEGAL(407, "token"),
     /**
      * 系统异常
      */
