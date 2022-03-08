@@ -8,6 +8,12 @@ spring:
           uri: http://127.0.0.1:8083/auth
           predicates:
             - Path=/auth/**
+        - id: web
+          uri: http://127.0.0.1:8088/
+          predicates:
+            - Path=/web/**
+
+
   # 数据库默认存用户鉴权相关信息
   redis:
     host: 127.0.0.1

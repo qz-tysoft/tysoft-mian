@@ -100,12 +100,12 @@ public class GlobalAuthenticationFilter implements GlobalFilter, Ordered {
                 String refreshToken = JWTToken.createAccessToken(refreshModel);
                 result.setRefreshToken(refreshToken);
                 result.setUserId(userId);
-                redisUtil.set(TokenConstants.USER_ID_FIELD, refreshToken);
-                redisUtil.expire(TokenConstants.USER_ID_FIELD, TokenConstants.EXPIRE_TIME_LONG);
+                redisUtil.set(userId, refreshToken);
+                redisUtil.expire(userId, TokenConstants.EXPIRE_TIME_LONG);
             } else {
                 result.setUserId(userId);
             }
-            ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header(TokenConstants.TOKEN_DATA_FIELD, result.toString()).build();
+            ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header(TokenConstants.TOKEN_DATA_FIELD, "{\"userId\":\""+result.getUserId()+"\",\"refreshToken\":\""+result.getRefreshToken()+"\"}").build();
             ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
             return chain.filter(build);
         } catch (ExpiredJwtException e) {

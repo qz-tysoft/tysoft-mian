@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tysoft.server.aspect.SystemLog;
 import tysoft.server.BaseControl;
+import tysoft.util.jwt.JWTToken;
+import tysoft.util.jwt.TokenConstants;
+import tysoft.util.response.ServerResponse;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -31,8 +35,10 @@ public class UserController extends BaseControl {
     //@PreAuthorize("hasPermission(null ,'system_manage')")
     @SystemLog(targetType = "/user/list", remark = "查询用户列表")
     @ApiOperation(value = "用户列表")
-    public UserModel userList(String test) {
-        return userService.selectUserModelByUserName("187123456789");
+    public void userList(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("request1111" + request.getParameter("username"));
+        System.out.println("request1111" + request.getHeader(TokenConstants.TOKEN_DATA_FIELD));
+        ServerResponse.createResponseEnumJson(response, ServerResponse.createBySuccessMessage(request, userService.selectUserModelByUserName("187123456789")));
     }
 
 }

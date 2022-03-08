@@ -21,9 +21,9 @@ public class TokenConstants {
     /**
      * token过期时间
      */
-    public static final Date EXPIRE_TIME_DATE =  new Date(System.currentTimeMillis() + 24 * 3600000);
+    public static final Date EXPIRE_TIME_DATE =  new Date(System.currentTimeMillis() + 4 * 60 * 1000);
 
-    public static final Long EXPIRE_TIME_LONG =  System.currentTimeMillis() + 24 * 3600000;
+    public static final Long EXPIRE_TIME_LONG =  System.currentTimeMillis() + 4 * 60 * 1000;
 
 
     /**
@@ -36,6 +36,10 @@ public class TokenConstants {
      */
     public static final String USER_ID_FIELD = "userId";
 
+    /**
+     *
+     */
+    public static final String REFRESH_TOKEN_FIELD = "refreshToken";
 
     /**
      * token传输字段

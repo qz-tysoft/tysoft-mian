@@ -38,6 +38,6 @@ public class UserLoginFailureHandler implements AuthenticationFailureHandler {
             log.info("【登录失败】" + exception.getMessage());
             ServerResponse.createResponseEnumJson(response, ServerResponse.userNameOrPasswordError());
         }
-        ServerResponse.createResponseEnumJson(response, ServerResponse.createByError());
+//        ServerResponse.createResponseEnumJson(response, ServerResponse.createByError());
     }
 }

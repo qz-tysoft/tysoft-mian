@@ -45,7 +45,7 @@ public enum ResponseEnum {
     /**
      * token不合法
      */
-    TOKEN_NO_LEGAL(407, "token"),
+    TOKEN_NO_LEGAL(407, "token无效"),
     /**
      * 系统异常
      */

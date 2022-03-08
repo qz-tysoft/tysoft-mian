@@ -1,13 +1,15 @@
 package tysoft.util.response;
 
-
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import tysoft.util.jwt.TokenConstants;
 
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
@@ -28,13 +30,17 @@ public class ServerResponse<T> implements Serializable {
     private String refreshToken;
     private T data;
 
-    private ServerResponse(Integer status) {
+
+    private ServerResponse(Integer status, String msg) {
         this.status = status;
+        this.msg = msg;
     }
 
-    private ServerResponse(Integer status, T data) {
-        this.status = status;
+    private ServerResponse(String refreshToken, Integer status, String msg, T data) {
         this.data = data;
+        this.status = status;
+        //this.msg = msg;
+        this.refreshToken = refreshToken;
     }
 
     private ServerResponse(Integer status, String msg, T data) {
@@ -43,77 +49,16 @@ public class ServerResponse<T> implements Serializable {
         this.msg = msg;
     }
 
-    private ServerResponse(Integer status, String msg, T data, String refreshToken) {
+    private ServerResponse(String refreshToken, Integer status, String msg) {
         this.data = data;
         this.status = status;
         this.msg = msg;
-        this.refreshToken = refreshToken;
-    }
-
-    private ServerResponse(Integer status, String msg) {
-        this.status = status;
-        this.msg = msg;
-    }
-
-    private ServerResponse(Integer status, String msg, String url) {
-        this.status = status;
-        this.msg = msg;
-        this.url = url;
     }
 
     // 使该对象不在json序列化中
     @JsonIgnore
     public boolean isSuccess() {
         return this.status.equals(ResponseEnum.SUCCESS.getCode());
-    }
-
-    public static <T> ServerResponse<T> createBySuccess() {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode());
-    }
-
-    public static <T> ServerResponse<T> createBySuccessMessage(String msg) {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(), msg);
-    }
-
-    public static <T> ServerResponse<T> createBySuccess(T data) {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(), data);
-    }
-
-    public static <T> ServerResponse<T> createByERROR(T data) {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(), data);
-    }
-
-    public static <T> ServerResponse<T> createBySuccess(String msg, T data) {
-        return new ServerResponse<T>(ResponseEnum.SUCCESS.getCode(), msg, data);
-    }
-
-    public static <T> ServerResponse<T> createByError() {
-        return new ServerResponse<T>(ResponseEnum.ERROR.getCode(), ResponseEnum.ERROR.getDesc());
-    }
-
-    public static <T> ServerResponse<T> createByError(T data) {
-        return new ServerResponse<T>(ResponseEnum.ERROR.getCode(), data);
-    }
-
-    public static <T> ServerResponse<T> createByErrorMessage(String errorMessage) {
-        return new ServerResponse<T>(ResponseEnum.ERROR.getCode(), errorMessage);
-    }
-
-    public static <T> ServerResponse<T> createByCodeMessage(Integer code, String errorMessage) {
-        return new ServerResponse<T>(code, errorMessage);
-    }
-
-    public static <T> ServerResponse<T> createSuccessAndSendRefreshToken(Integer status, String msg, T data, String refreshToken) {
-        return new ServerResponse<T>(status, ResponseEnum.SUCCESS.getDesc(), data, refreshToken);
-    }
-
-    /**
-     * 无对应资源的权限
-     *
-     * @return ServerResponse
-     */
-    public static ServerResponse noAccessPermissions() {
-        return new ServerResponse(ResponseEnum.NO_ACCESS_PERMISSIONS.getCode(), ResponseEnum.NO_ACCESS_PERMISSIONS.getDesc());
     }
 
 
@@ -129,6 +74,21 @@ public class ServerResponse<T> implements Serializable {
         return new ServerResponse(ResponseEnum.TOKEN_NO_LEGAL.getCode(), ResponseEnum.TOKEN_NO_LEGAL.getDesc());
     }
 
+    public static ServerResponse createBySuccessMessage(String msg) {
+        return new ServerResponse(ResponseEnum.SUCCESS.getCode(), msg);
+    }
+
+    public static ServerResponse createBySuccess(String msg) {
+        return new ServerResponse(ResponseEnum.SUCCESS.getCode(), msg);
+    }
+
+    public static <T> ServerResponse<T> createBySuccessMessage(HttpServletRequest request, T data) {
+        return getServerResponse(getRefreshToken(request), ResponseEnum.SUCCESS.getCode(), ResponseEnum.SUCCESS.getDesc(), data);
+    }
+
+    public static <T> ServerResponse<T> createByErrorMessage(HttpServletRequest request, T data) {
+        return new ServerResponse(ResponseEnum.ERROR.getCode(), ResponseEnum.ERROR.getDesc());
+    }
 
     /**
      * 未登录
@@ -176,6 +136,31 @@ public class ServerResponse<T> implements Serializable {
             if (out != null) {
                 out.flush();
                 out.close();
+            }
+        }
+    }
+
+    public static String getRefreshToken(HttpServletRequest request) {
+        JSONObject tokenData = JSON.parseObject(request.getHeader(TokenConstants.TOKEN_DATA_FIELD));
+        if (tokenData != null) {
+            return (String) tokenData.get(TokenConstants.REFRESH_TOKEN_FIELD);
+        }
+        return null;
+    }
+
+
+    public static <T> ServerResponse<T> getServerResponse(String refreshToken, Integer status, String msg, T data) {
+        if (refreshToken == null || StringUtils.isEmpty(refreshToken)) {
+            if (data == null) {
+                return new ServerResponse(status, msg);
+            } else {
+                return new ServerResponse(status, msg, data);
+            }
+        } else {
+            if (data == null) {
+                return new ServerResponse(refreshToken, status, msg);
+            } else {
+                return new ServerResponse(refreshToken, status, msg, data);
             }
         }
     }

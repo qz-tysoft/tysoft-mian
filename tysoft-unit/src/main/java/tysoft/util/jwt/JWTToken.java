@@ -24,6 +24,8 @@ public class JWTToken {
      */
     public static String createAccessToken(UserModel userModel) {
         // 登陆成功生成JWT
+        System.out.println("失效时间:" + TokenConstants.EXPIRE_TIME_DATE);
+        System.out.println("失效时间Long:" + TokenConstants.EXPIRE_TIME_LONG);
         String token = Jwts.builder()
                 // 放入用户名和用户ID
                 .setId(userModel.getUserId() + "")
@@ -35,7 +37,6 @@ public class JWTToken {
                 .setIssuer(TokenConstants.SING_NAME)
                 // 自定义属性 放入用户拥有权限
                 .claim(TokenConstants.AUTH_FIELD, JSON.toJSONString(userModel.getAuthorities()))
-                // 失效时间(一天)
                 .setExpiration(TokenConstants.EXPIRE_TIME_DATE)
                 // 签名算法和密钥
                 .signWith(SignatureAlgorithm.HS512, TokenConstants.SING_KEY)
