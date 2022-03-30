@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.tysoft.vo.system.GateWayVO;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import tysoft.util.jwt.TokenConstants;
@@ -141,16 +142,17 @@ public class ServerResponse<T> implements Serializable {
     }
 
     public static String getRefreshToken(HttpServletRequest request) {
-        JSONObject tokenData = JSON.parseObject(request.getHeader(TokenConstants.TOKEN_DATA_FIELD));
-        if (tokenData != null) {
-            return (String) tokenData.get(TokenConstants.REFRESH_TOKEN_FIELD);
+        GateWayVO userToken = JSON.parseObject(request.getHeader(TokenConstants.TOKEN_DATA_FIELD), GateWayVO.class);
+        //JSONObject tokenData = JSON.parseObject(request.getHeader(TokenConstants.TOKEN_DATA_FIELD));
+        if (userToken != null) {
+            return userToken.getRefreshToken();
         }
         return null;
     }
 
 
     public static <T> ServerResponse<T> getServerResponse(String refreshToken, Integer status, String msg, T data) {
-        if (refreshToken == null || StringUtils.isEmpty(refreshToken)) {
+        if (refreshToken == null) {
             if (data == null) {
                 return new ServerResponse(status, msg);
             } else {

@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.tysoft.api.system.LogService;
 import com.tysoft.api.system.LogServiceImpl;
 import com.tysoft.entity.system.LogModel;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+//import io.jsonwebtoken.Claims;
+//import io.jsonwebtoken.Jwts;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -67,18 +67,18 @@ public class LogAopAspect {
         // 头部获取token
         String token = request.getHeader("Authorization");
         // 解析JWT
-        Claims claims = Jwts.parser()
-                .setSigningKey("JWTSecret")
-                .parseClaimsJws(token)
-                .getBody();
-        saveLogModel.setOptUserId(claims.getId());
-        saveLogModel.setOptUserName(claims.getSubject());
-        Map resultMap = getLogMark(joinPoint);
-        saveLogModel.setOptMethod((String) resultMap.get(LOG_TARGET_TYPE));
-        saveLogModel.setOptRemark((String) resultMap.get(LOG_REMARK));
-        Map<String,Object> fieldsName = getFieldsName(joinPoint);
-        // Map转Json字符串
-        saveLogModel.setParams(new Gson().toJson(fieldsName));
+//        Claims claims = Jwts.parser()
+//                .setSigningKey("JWTSecret")
+//                .parseClaimsJws(token)
+//                .getBody();
+//        saveLogModel.setOptUserId(claims.getId());
+//        saveLogModel.setOptUserName(claims.getSubject());
+//        Map resultMap = getLogMark(joinPoint);
+//        saveLogModel.setOptMethod((String) resultMap.get(LOG_TARGET_TYPE));
+//        saveLogModel.setOptRemark((String) resultMap.get(LOG_REMARK));
+//        Map<String,Object> fieldsName = getFieldsName(joinPoint);
+//        // Map转Json字符串
+//        saveLogModel.setParams(new Gson().toJson(fieldsName));
         logService.saveOrUpDateLog(saveLogModel);
     }
 

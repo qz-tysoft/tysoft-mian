@@ -1,4 +1,4 @@
-package tysoft.gateway.fifter;
+package com.tysoft.vo.system;
 
 import lombok.Data;
 

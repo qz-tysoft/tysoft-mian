@@ -16,7 +16,7 @@ spring:
 
   # 数据库默认存用户鉴权相关信息
   redis:
-    host: 127.0.0.1
+    host: 116.62.58.46
     password:
     port: 6379
     jedis:
@@ -34,7 +34,7 @@ spring:
       max-active: 20
       max-wait: 30000
       min-idle: 5
-      url: jdbc:mysql://localhost:3306/tysoft_main?useUnicode=true&characterEncoding=utf-8
+      url: jdbc:mysql://116.62.58.46:3306/tysoft_main?useUnicode=true&characterEncoding=utf-8
       username: root
       password: 123456
 eureka:
@@ -43,6 +43,6 @@ eureka:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://localhost:8081/eureka/
+      defaultZone: http://116.62.58.46:8081/eureka/
     fetch-registry: true
     register-with-eureka: true

@@ -3,6 +3,7 @@ package tysoft.gateway.fifter;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tysoft.entity.system.UserModel;
+import com.tysoft.vo.system.GateWayVO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -105,7 +106,7 @@ public class GlobalAuthenticationFilter implements GlobalFilter, Ordered {
             } else {
                 result.setUserId(userId);
             }
-            ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header(TokenConstants.TOKEN_DATA_FIELD, "{\"userId\":\""+result.getUserId()+"\",\"refreshToken\":\""+result.getRefreshToken()+"\"}").build();
+            ServerHttpRequest tokenRequest = exchange.getRequest().mutate().header(TokenConstants.TOKEN_DATA_FIELD, JSONObject.toJSONString(result)).build();
             ServerWebExchange build = exchange.mutate().request(tokenRequest).build();
             return chain.filter(build);
         } catch (ExpiredJwtException e) {

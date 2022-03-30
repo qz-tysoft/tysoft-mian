@@ -32,6 +32,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.tysoft.main</groupId>
+            <artifactId>tysoft-entity</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
@@ -81,8 +87,10 @@
             <scope>provided</scope>
         </dependency>
 
-
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
 
     </dependencies>
 
