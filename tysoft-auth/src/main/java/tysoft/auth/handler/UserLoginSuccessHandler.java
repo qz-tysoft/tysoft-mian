@@ -31,8 +31,8 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
         // 组装JWT
         UserModel userModel = (UserModel) authentication.getPrincipal();
         // redis设置过期时间
-        redisUtil.set(userModel.getUserId(),JWTToken.createAccessToken(userModel));
-        redisUtil.expire(userModel.getUserId(),TokenConstants.EXPIRE_TIME_LONG);
+        redisUtil.set(userModel.getUserId(), JWTToken.createAccessToken(userModel));
+        redisUtil.expire(userModel.getUserId(), TokenConstants.EXPIRE_TIME_LONG);
         ServerResponse.createResponseEnumJson(response, ServerResponse.createBySuccess(JWTToken.createAccessToken(userModel)));
     }
 }

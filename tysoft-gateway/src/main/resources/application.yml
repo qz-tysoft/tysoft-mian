@@ -5,7 +5,7 @@ spring:
     gateway:
       routes:
         - id: auth
-          uri: http://127.0.0.1:8083/auth
+          uri: http://116.62.58.46:8084/auth
           predicates:
             - Path=/auth/**
         - id: web
@@ -17,7 +17,7 @@ spring:
   # 数据库默认存用户鉴权相关信息
   redis:
     host: 116.62.58.46
-    password:
+    password: 123456
     port: 6379
     jedis:
       pool:

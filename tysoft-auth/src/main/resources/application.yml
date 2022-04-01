@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8084
   servlet:
       context-path: /auth
 spring:
@@ -8,7 +8,7 @@ spring:
   # 数据库默认存用户鉴权相关信息
   redis:
     host: 116.62.58.46
-    password:
+    password: 123456
     port: 6379
     jedis:
       pool:
